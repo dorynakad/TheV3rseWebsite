@@ -14,11 +14,21 @@
 <!--**CHIP** Psh, that was basically a warm-up. Tell Genius to draw me buffer-overflow abs next drop. And Ponce —tell JKCryptoxyz the gas fees on my ego just tripled -->
 
 <body>
-    <main class="container">
-        <div class="image-wrapper">
-            <img src="image.jpeg" alt="Web Placement Design" class="featured-image">
-            <a href="https://x.com/theVerse_World" target="_blank" class="hotspot x-link" title="Visit X (Twitter)"></a>
-            <a href="https://discord.gg/TnPhnQMX" target="_blank" class="hotspot discord-link" title="Join Discord"></a>
+    <main class="dev-container">
+        <h1 class="dev-title">SYSTEM UNDER DEVELOPMENT</h1>
+        <div class="glitch-wrapper">
+            <img id="glitch-img" src="glitchcut_000/glitchcut_000.jpg" alt="System Glitch">
+        </div>
+        <div class="footer">
+            <div class="social-icons">
+                <a href="https://discord.gg/TnPhnQMX" target="_blank">
+                    <img src="discord-white-icon.webp" alt="Discord" class="social-icon">
+                </a>
+                <a href="https://x.com/theVerse_World" target="_blank">
+                    <img src="X_Logo.png" alt="X" class="social-icon">
+                </a>
+            </div>
+            <p class="copyright">Copyright 2026 Mad Studios. All rights reserved.</p>
         </div>
     </main>
     <div id="video-overlay" class="video-overlay">
@@ -123,6 +133,37 @@
                 }
             });
         }
+
+        // Glitch Image Sequence Logic - Scroll Bound
+        const glitchImg = document.getElementById('glitch-img');
+        const totalFrames = 80; // 000 to 079
+
+        // Preload images for smoother scrolling
+        const images = [];
+        for (let i = 0; i < totalFrames; i++) {
+            const img = new Image();
+            const frameStr = String(i).padStart(3, '0');
+            img.src = `glitchcut_000/glitchcut_${frameStr}.jpg`;
+            images.push(img.src);
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!glitchImg) return;
+
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+
+            // Map percentage to frame index
+            let frameIndex = Math.floor(scrollPercent * (totalFrames - 1));
+
+            // Clamp value
+            if (frameIndex < 0) frameIndex = 0;
+            if (frameIndex >= totalFrames) frameIndex = totalFrames - 1;
+
+            const frameStr = String(frameIndex).padStart(3, '0');
+            glitchImg.src = `glitchcut_000/glitchcut_${frameStr}.jpg`;
+        });
     </script>
 </body>
 
