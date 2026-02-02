@@ -110,10 +110,16 @@ body {
     font-size: 3rem;
     font-weight: bold;
     text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
     letter-spacing: 2px;
     animation: flash 1s infinite alternate;
+    position: relative;
+    z-index: 1005;
+    /* Be definitely on top of portal (1000) */
 }
+
+
 
 .warning-message {
     position: fixed;
@@ -130,6 +136,7 @@ body {
     line-height: 1.2;
     text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     display: none;
+    animation: flash 1s infinite alternate;
     z-index: 1001;
     /* Above almost everything */
     pointer-events: none;
@@ -151,5 +158,32 @@ body {
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .warning-message {
+        font-size: 1.5rem;
+        width: 90%;
+        line-height: 1.4;
+    }
+
+    .error-message {
+        font-size: 1.8rem;
+        width: 90%;
+        text-align: center;
+    }
+
+    .hotspot {
+        /* Increase touch target size slightly on mobile if needed, 
+           or keep strict alignment. Let's start with scale to make hitting it easier. */
+        transform: scale(1.5);
+    }
+
+    .hotspot:hover {
+        transform: scale(1.5);
+        /* Remove hover expansion on mobile to prevent stuck states, keep base scale */
     }
 }
