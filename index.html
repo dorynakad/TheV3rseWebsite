@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TheV3rse is Opening</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Outfit:wght@300;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,6 +20,74 @@
             <a href="https://discord.gg/TnPhnQMX" target="_blank" class="hotspot discord-link" title="Join Discord"></a>
         </div>
     </main>
+    <div id="video-overlay" class="video-overlay">
+        <video id="loading-video" src="Loading.mp4" playsinline></video>
+        <div id="error-message" class="error-message">THE V3RSE IS COMING
+        </div>
+    </div>
+    <div id="warning-message" class="warning-message">COUNTER = 8,<br> MAX LIMIT = 10 <br> GL!TCH resets in 2 seconds
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let clickTimer;
+        const requiredClicks = 10;
+        const resetTime = 2000; // Reset count if no click for 2 seconds
+
+        document.addEventListener('click', (e) => {
+            clickCount++;
+            clearTimeout(clickTimer);
+
+            const warning = document.getElementById('warning-message');
+
+            if (clickCount === 8) {
+                if (warning) warning.style.display = 'block';
+            }
+
+            if (clickCount >= requiredClicks) {
+                if (warning) warning.style.display = 'none';
+                playEasterEgg();
+                clickCount = 0;
+            } else {
+                clickTimer = setTimeout(() => {
+                    clickCount = 0;
+                    if (warning) warning.style.display = 'none';
+                }, resetTime);
+            }
+        });
+
+        function playEasterEgg() {
+            const overlay = document.getElementById('video-overlay');
+            const video = document.getElementById('loading-video');
+            const errorMessage = document.getElementById('error-message');
+
+            if (overlay && video && errorMessage) {
+                errorMessage.style.display = 'none'; // Ensure error is hidden initially
+                video.style.display = 'block';
+                overlay.style.display = 'flex';
+                video.currentTime = 0;
+                video.play().catch(err => console.error("Video play failed:", err));
+            }
+        }
+
+        const videoElement = document.getElementById('loading-video');
+        if (videoElement) {
+            videoElement.addEventListener('ended', () => {
+                // Hide video, show error message
+                videoElement.style.display = 'none';
+                const errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+
+                    // Close overlay after 3 seconds
+                    setTimeout(() => {
+                        const overlay = document.getElementById('video-overlay');
+                        if (overlay) overlay.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
